@@ -1,0 +1,82 @@
+name: Auto Commit
+
+on:
+  push:
+    branches:
+      - main
+      
+  schedule:
+  - cron: "*/30 * * * *" # https://crontab.guru/#*/30_*_*_*_*
+
+jobs:
+  auto_commit:
+    runs-on: ubuntu-latest
+    steps:       
+      - uses: actions/checkout@v3      
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Modify Last Update
+        run: |
+          d=`date '+%Y-%m-%dT%H:%M:%SZ'`
+          echo $d > LAST_UPDATED
+          
+      - name: Commit Changes
+        run: |
+          git config --local user.name "81JC"
+          git config --local user.email "me@kydo.lol"
+          git add -A
+          
+          arr[0]="turu(bot): RAWRRRR ✨"
+          arr[1]="turu(bot): RAWRRRR 🎆"
+          arr[2]="turu(bot): RAWRRRR 🎉"
+          arr[3]="turu(bot): RAWRRRR 🎊"
+          arr[4]="turu(bot): RAWRRRR 🎄"
+          arr[5]="turu(bot): RAWRRRR 🧨"
+          arr[6]="turu(bot): RAWRRRR 🎐"
+          arr[7]="turu(bot): RAWRRRR 🐣"
+          arr[8]="turu(bot): RAWRRRR 🐝"
+          arr[9]="turu(bot): RAWRRRR 🦅"
+          arr[10]="turu(bot): RAWRRRR 👽"
+          arr[11]="turu(bot): RAWRRRR 🐅"
+          arr[12]="turu(bot): RAWRRRR 🐆"
+          arr[13]="turu(bot): RAWRRRR 🐕‍🦺"
+          arr[13]="turu(bot): RAWRRRR 🦮"
+          arr[15]="turu(bot): RAWRRRR 🐩"
+          arr[16]="turu(bot): RAWRRRR 🐕"
+          arr[17]="turu(bot): RAWRRRR 🐈"
+          arr[18]="turu(bot): RAWRRRR 🐎"
+          arr[19]="turu(bot): RAWRRRR 🦏"
+          arr[20]="turu(bot): RAWRRRR 🐂"
+          arr[21]="turu(bot): RAWRRRR 🐃"
+          arr[22]="turu(bot): RAWRRRR 🐐"
+          arr[23]="turu(bot): RAWRRRR 🦌"
+          arr[24]="turu(bot): RAWRRRR 🦛"
+          arr[25]="turu(bot): RAWRRRR 🐄"
+          arr[26]="turu(bot): RAWRRRR 🐖"
+          arr[27]="turu(bot): RAWRRRR 🦍"
+          arr[28]="turu(bot): RAWRRRR 🐏"
+          arr[29]="turu(bot): RAWRRRR 🐑"
+          arr[30]="turu(bot): RAWRRRR 🐪"
+          arr[31]="turu(bot): RAWRRRR 🐫"
+          arr[32]="turu(bot): RAWRRRR 🦙"
+          arr[33]="turu(bot): RAWRRRR 🦖"
+          arr[34]="turu(bot): RAWRRRR 🦕"
+          arr[35]="turu(bot): RAWRRRR 🐉"
+          arr[36]="turu(bot): RAWRRRR 🐍"
+          arr[37]="turu(bot): RAWRRRR 🦎"
+          arr[38]="turu(bot): RAWRRRR 🐊"
+          arr[39]="turu(bot): RAWRRRR 🐘"
+          arr[40]="turu(bot): RAWRRRR 🐒"
+          
+          rand=$[$RANDOM % ${#arr[@]}]
+          
+          git commit -m "${arr[$rand]}"
+          
+      - name: GitHub Push
+        uses: ad-m/github-push-action@master
+        with:
+          force: true
+          directory: "."
+          github_token: ${{ secrets.GITHUB_TOKEN }}
